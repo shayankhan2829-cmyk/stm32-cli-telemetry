@@ -1,0 +1,3 @@
+Boot OK - NUCLEO-F446ZE @ 180 MHz
+Day 1 complete. CLI Telemetry project ready.
+

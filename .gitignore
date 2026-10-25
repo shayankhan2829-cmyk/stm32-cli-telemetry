@@ -1,0 +1,8 @@
+cli_telemetry/Debug/
+cli_telemetry/Release/
+*.o
+*.d
+*.su
+*.cyclo
+__pycache__/
+*.csv
