@@ -26,6 +26,7 @@ static volatile uint32_t rx_overruns;
 
 static char     line[LINE_MAX];
 static uint16_t line_len;
+static uint8_t  line_overflow;
 
 static uint32_t stream_period_ms;  /* 0 = stream off */
 static uint32_t stream_last_ms;
@@ -247,8 +248,16 @@ static void handle_char(uint8_t c)
   {
     printf("\r\n");
     line[line_len] = '\0';
-    execute_line(line);
+    if (line_overflow)
+    {
+      printf("error: line too long (max %u chars)\r\n", (unsigned)(LINE_MAX - 1U));
+    }
+    else
+    {
+      execute_line(line);
+    }
     line_len = 0;
+    line_overflow = 0;
     printf(PROMPT);
   }
   else if (c == '\b' || c == 0x7F)
@@ -259,10 +268,17 @@ static void handle_char(uint8_t c)
       printf("\b \b");
     }
   }
-  else if (c >= 0x20 && c < 0x7F && line_len < LINE_MAX - 1U)
+  else if (c >= 0x20 && c < 0x7F)
   {
-    line[line_len++] = (char)c;
-    putchar(c);
+    if (line_len < LINE_MAX - 1U)
+    {
+      line[line_len++] = (char)c;
+      putchar(c);
+    }
+    else
+    {
+      line_overflow = 1;           /* keep swallowing until Enter */
+    }
   }
 }
 

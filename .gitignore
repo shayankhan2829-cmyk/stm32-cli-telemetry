@@ -6,3 +6,4 @@ cli_telemetry/Release/
 *.cyclo
 __pycache__/
 *.csv
+!documentation/*.csv

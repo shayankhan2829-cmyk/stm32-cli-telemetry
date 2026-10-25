@@ -1,4 +1,4 @@
-# cli_telemetry — STM32F446 UART command line + live telemetry
+# cli_telemetry: STM32F446 UART command line with live telemetry
 
 Bare-metal firmware for the **NUCLEO-F446ZE** (Cortex-M4F @ 180 MHz). It gives a
 serial command line over the ST-LINK virtual COM port, on-chip telemetry
@@ -56,7 +56,7 @@ documentation/               bring-up record, build/flash/clock evidence
 ## Build and flash
 
 1. Open STM32CubeIDE, *File → Import → Existing Projects*, select `cli_telemetry/`.
-2. *Project → Build All* (expected: 0 errors, 0 warnings, ~25 KB flash).
+2. *Project → Build All* (expected: 0 errors, 0 warnings, about 25 KB of flash).
 3. Connect the Nucleo's ST-LINK USB, *Run*. Or from the command line:
 
 ```bash
@@ -79,7 +79,26 @@ python tools/telemetry_logger.py COM3 --period 500 --out log.csv
 - **Regeneration-safe.** All edits to CubeMX files are inside `USER CODE` blocks; application logic lives in separate files. If USART3 global interrupt is later enabled in CubeMX, remove the generated `USART3_IRQHandler` or route it to `cli_rx_isr()`.
 - **TX is blocking** (~87 µs/byte at 115200). Fine for a console; the next step for high-rate logging is DMA TX with a double buffer.
 
-## Status
+## Tested on hardware
 
-- Clock tree, build, flash and UART output verified on hardware ([documentation/VALIDATION.md](documentation/VALIDATION.md)).
-- v1.0.0 CLI/telemetry firmware: builds with 0 errors / 0 warnings in STM32CubeIDE 2.1.1. Hardware session log: see `documentation/cli-session.txt`.
+v1.0.1, NUCLEO-F446ZE, 25 Oct 2026. Every command, the error paths, all three reset causes
+(pin, software, watchdog) and the PC logger were run on the board. Excerpt:
+
+```text
+> read json
+{"t_ms":3339,"temp_c":36.69,"vdda_mv":3315,"btn":0}
+> stream 10
+error: period must be 50..60000 ms
+> wdtest
+simulating a hang; IWDG should reset the MCU in ~2 s
+
+=== cli_telemetry v1.0.1 | NUCLEO-F446ZE @ 180 MHz ===
+reset cause: watchdog (IWDG)
+```
+
+- Full serial session: [documentation/cli-session.txt](documentation/cli-session.txt)
+- Logger output, 10 samples at 200 ms: [documentation/logger-run.csv](documentation/logger-run.csv)
+- Build, flash and clock-register evidence: [documentation/VALIDATION.md](documentation/VALIDATION.md)
+
+Temperature resolution is about 0.3 °C (one ADC count). The sensor reads the die, so it sits
+several degrees above room temperature at 180 MHz.

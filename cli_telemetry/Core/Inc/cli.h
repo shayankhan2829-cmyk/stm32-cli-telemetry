@@ -7,7 +7,7 @@
 
 #include "main.h"
 
-#define FW_VERSION "1.0.0"
+#define FW_VERSION "1.0.1"
 
 void cli_init(UART_HandleTypeDef *huart);
 void cli_poll(void);      /* call from the main loop; never blocks on input */

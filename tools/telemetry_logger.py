@@ -39,12 +39,13 @@ def main() -> int:
         try:
             while args.count == 0 or n < args.count:
                 raw = port.readline().decode(errors="replace").strip()
-                if not raw.startswith("{"):
+                start = raw.find("{")      # first sample arrives behind the "> " prompt
+                if start < 0:
                     if raw:
                         print(f"# {raw}")
                     continue
                 try:
-                    sample = json.loads(raw)
+                    sample = json.loads(raw[start:])
                 except json.JSONDecodeError:
                     print(f"# bad line: {raw}", file=sys.stderr)
                     continue

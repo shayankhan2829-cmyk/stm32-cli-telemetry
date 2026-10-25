@@ -8,3 +8,21 @@
 - Verification was done on the raw UART bytes through the Windows serial API, not by reading a terminal window.
 
 Follow [REPEATABLE_WORKFLOW.md](REPEATABLE_WORKFLOW.md) for the numbered procedure and actual dialogs/errors encountered. The older WORKFLOW.md contains only the initial session notes.
+
+## v1.0.1 CLI and telemetry firmware (25 Oct 2026)
+
+- Built with STM32CubeIDE 2.1.1 / GCC 14.3: 0 errors, 0 warnings. text 24808, data 120, bss 3456 bytes.
+- Programmed over SWD with STM32CubeProgrammer, "Download verified successfully".
+- Every CLI command exercised over COM3 at 115200 8N1 by a script, output in [cli-session.txt](cli-session.txt):
+  help, status, read, read json, led on/off/toggle on all three LEDs, uid, backspace editing,
+  unknown command, bad arguments, out-of-range stream period, over-long line, text and JSON streaming,
+  software reset and watchdog reset.
+- Reset cause reported correctly for NRST pin, software reset and IWDG timeout.
+- `tools/telemetry_logger.py` (pyserial 3.5, Python 3.14) logged 10 samples at 200 ms with no
+  missing lines: [logger-run.csv](logger-run.csv).
+- Measured: VDDA 3313 to 3315 mV, die temperature 35.7 to 36.7 °C at idle.
+- Not yet captured in a log: the USER button press/release events (needs a physical press).
+
+Fixed during this test: an over-long input line used to be cut off and rejected as an unknown command.
+It now reports "line too long". The logger used to skip the first sample, because that line arrives
+right after the "> " prompt.
