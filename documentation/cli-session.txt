@@ -1,15 +1,17 @@
-cli_telemetry v1.0.1 on NUCLEO-F446ZE, captured 2026-10-25 on COM3 (115200 8N1)
+cli_telemetry v1.0.2 on NUCLEO-F446ZE, captured 2026-10-26 on COM3 (115200 8N1)
 Script types each command; <BS> marks a backspace the firmware erased.
 The ST-LINK hard reset pulses NRST, then issues a software reset on disconnect,
 which is why the first section shows two boots.
 
 --- hardware reset via ST-LINK (NRST)
-
-=== cli_telemetry v1.0.1 | NUCLEO-F446ZE @ 180 MHz ===
+ream off
+stream off
+> 
+=== cli_telemetry v1.0.2 | NUCLEO-F446ZE @ 180 MHz ===
 reset cause: reset pin
 type 'help' for commands
 > 
-=== cli_telemetry v1.0.1 | NUCLEO-F446ZE @ 180 MHz ===
+=== cli_telemetry v1.0.2 | NUCLEO-F446ZE @ 180 MHz ===
 reset cause: software
 type 'help' for commands
 > help
@@ -22,7 +24,7 @@ type 'help' for commands
   reset                     software reset
   wdtest                    stop kicking watchdog (resets ~2 s)
 > status
-firmware   : cli_telemetry v1.0.1 (Oct 25 2026 23:38:47)
+firmware   : cli_telemetry v1.0.2 (Oct 25 2026 23:59:56)
 mcu        : STM32F446ZE rev 0x1000
 sysclk     : 180000000 Hz
 hclk/pclk1/pclk2 : 180000000 / 45000000 / 90000000 Hz
@@ -31,9 +33,9 @@ reset cause: software
 rx overruns: 0
 stream     : off
 > read
-t_ms=2750 temp_c=36.37 vdda_mv=3313 btn=0
+t_ms=2701 temp_c=37.64 vdda_mv=3315 btn=0
 > read json
-{"t_ms":3339,"temp_c":36.69,"vdda_mv":3315,"btn":0}
+{"t_ms":3293,"temp_c":37.64,"vdda_mv":3315,"btn":0}
 > led 1 on
 led1 (green) = on
 > led 2 toggle
@@ -67,24 +69,24 @@ error: period must be 50..60000 ms
 error: line too long (max 63 chars)
 > stream 250 json
 stream every 250 ms (json), 'stream off' to stop
-> {"t_ms":12130,"temp_c":36.69,"vdda_mv":3315,"btn":0}
-{"t_ms":12375,"temp_c":36.37,"vdda_mv":3313,"btn":0}
-{"t_ms":12625,"temp_c":36.69,"vdda_mv":3315,"btn":0}
-{"t_ms":12875,"temp_c":36.37,"vdda_mv":3313,"btn":0}
-{"t_ms":13125,"temp_c":36.37,"vdda_mv":3313,"btn":0}
-{"t_ms":13375,"temp_c":36.37,"vdda_mv":3313,"btn":0}
-stre{"t_ms":13625,"temp_c":36.37,"vdda_mv":3313,"btn":0}
-am off
+> {"t_ms":12011,"temp_c":37.33,"vdda_mv":3313,"btn":0}
+{"t_ms":12256,"temp_c":37.96,"vdda_mv":3315,"btn":0}
+{"t_ms":12506,"temp_c":37.64,"vdda_mv":3315,"btn":0}
+{"t_ms":12756,"temp_c":37.33,"vdda_mv":3313,"btn":0}
+{"t_ms":13006,"temp_c":37.96,"vdda_mv":3315,"btn":0}
+{"t_ms":13256,"temp_c":37.64,"vdda_mv":3315,"btn":0}
+st{"t_ms":13506,"temp_c":37.64,"vdda_mv":3315,"btn":0}
+ream off
 stream off
 > stream 500
 stream every 500 ms (text), 'stream off' to stop
-> t_ms=14343 temp_c=36.69 vdda_mv=3315 btn=0
-t_ms=14838 temp_c=36.37 vdda_mv=3313 btn=0
-t_ms=15338 temp_c=36.37 vdda_mv=3313 btn=0
+> t_ms=14302 temp_c=37.96 vdda_mv=3315 btn=0
+t_ms=14796 temp_c=37.64 vdda_mv=3315 btn=0
+t_ms=15296 temp_c=37.64 vdda_mv=3315 btn=0
 stream off
 stream off
 > status
-firmware   : cli_telemetry v1.0.1 (Oct 25 2026 23:38:47)
+firmware   : cli_telemetry v1.0.2 (Oct 25 2026 23:59:56)
 mcu        : STM32F446ZE rev 0x1000
 sysclk     : 180000000 Hz
 hclk/pclk1/pclk2 : 180000000 / 45000000 / 90000000 Hz
@@ -97,7 +99,7 @@ stream     : off
 reset
 resetting...
 
-=== cli_telemetry v1.0.1 | NUCLEO-F446ZE @ 180 MHz ===
+=== cli_telemetry v1.0.2 | NUCLEO-F446ZE @ 180 MHz ===
 reset cause: software
 type 'help' for commands
 > 
@@ -105,11 +107,11 @@ type 'help' for commands
 wdtest
 simulating a hang; IWDG should reset the MCU in ~2 s
 
-=== cli_telemetry v1.0.1 | NUCLEO-F446ZE @ 180 MHz ===
+=== cli_telemetry v1.0.2 | NUCLEO-F446ZE @ 180 MHz ===
 reset cause: watchdog (IWDG)
 type 'help' for commands
 > status
-firmware   : cli_telemetry v1.0.1 (Oct 25 2026 23:38:47)
+firmware   : cli_telemetry v1.0.2 (Oct 25 2026 23:59:56)
 mcu        : STM32F446ZE rev 0x1000
 sysclk     : 180000000 Hz
 hclk/pclk1/pclk2 : 180000000 / 45000000 / 90000000 Hz

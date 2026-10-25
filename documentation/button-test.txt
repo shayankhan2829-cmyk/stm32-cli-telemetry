@@ -1,0 +1,105 @@
+cli_telemetry v1.0.2 on NUCLEO-F446ZE, 26 Oct 2026, COM3 115200 8N1
+USER button test. This board's B1 is broken, so PC13 (CN11 pin 23) was jumpered to
++3.3 V (CN11 pin 16) by hand, which is the same signal B1 produces. The wire was
+already connected when recording started. 'btn' in the samples is the raw pin level;
+events fire once the level has held for 30 ms. Result: 6 level changes, 6 events,
+no duplicates from wire bounce.
+
+> stream 500
+stream every 500 ms (text), 'stream off' to stop
+> t_ms=25934 temp_c=35.73 vdda_mv=3313 btn=1
+t_ms=26429 temp_c=35.73 vdda_mv=3313 btn=1
+t_ms=26929 temp_c=36.05 vdda_mv=3315 btn=1
+t_ms=27429 temp_c=35.73 vdda_mv=3313 btn=1
+t_ms=27929 temp_c=35.73 vdda_mv=3313 btn=1
+t_ms=28429 temp_c=35.73 vdda_mv=3313 btn=1
+t_ms=28929 temp_c=35.73 vdda_mv=3313 btn=1
+t_ms=29429 temp_c=35.73 vdda_mv=3313 btn=1
+t_ms=29929 temp_c=36.05 vdda_mv=3315 btn=1
+t_ms=30429 temp_c=35.73 vdda_mv=3313 btn=1
+t_ms=30929 temp_c=36.37 vdda_mv=3315 btn=1
+
+event: button released
+> t_ms=31429 temp_c=35.73 vdda_mv=3313 btn=0
+t_ms=31929 temp_c=36.05 vdda_mv=3313 btn=0
+t_ms=32429 temp_c=35.73 vdda_mv=3313 btn=0
+t_ms=32929 temp_c=35.73 vdda_mv=3313 btn=0
+t_ms=33429 temp_c=36.05 vdda_mv=3313 btn=0
+t_ms=33929 temp_c=36.05 vdda_mv=3313 btn=0
+t_ms=34429 temp_c=36.05 vdda_mv=3315 btn=0
+t_ms=34929 temp_c=35.73 vdda_mv=3313 btn=0
+t_ms=35429 temp_c=36.05 vdda_mv=3313 btn=0
+t_ms=35929 temp_c=35.73 vdda_mv=3313 btn=0
+
+event: button pressed
+> t_ms=36429 temp_c=36.37 vdda_mv=3315 btn=1
+t_ms=36929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=37429 temp_c=36.37 vdda_mv=3315 btn=1
+t_ms=37929 temp_c=36.37 vdda_mv=3315 btn=1
+t_ms=38429 temp_c=36.37 vdda_mv=3315 btn=1
+t_ms=38929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=39429 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=39929 temp_c=36.69 vdda_mv=3315 btn=1
+t_ms=40429 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=40929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=41429 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=41929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=42429 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=42929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=43429 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=43929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=44429 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=44929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=45429 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=45929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=46429 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=46929 temp_c=36.37 vdda_mv=3315 btn=1
+t_ms=47429 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=47929 temp_c=36.69 vdda_mv=3315 btn=1
+t_ms=48429 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=48929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=49429 temp_c=36.37 vdda_mv=3315 btn=1
+t_ms=49929 temp_c=36.69 vdda_mv=3315 btn=1
+
+event: button released
+> t_ms=50429 temp_c=36.05 vdda_mv=3313 btn=0
+t_ms=50929 temp_c=36.05 vdda_mv=3313 btn=0
+t_ms=51429 temp_c=36.05 vdda_mv=3313 btn=0
+t_ms=51929 temp_c=36.69 vdda_mv=3315 btn=0
+
+event: button pressed
+> t_ms=52429 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=52929 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=53429 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=53929 temp_c=36.05 vdda_mv=3313 btn=1
+t_ms=54429 temp_c=36.37 vdda_mv=3313 btn=1
+
+event: button released
+> t_ms=54929 temp_c=36.37 vdda_mv=3313 btn=0
+t_ms=55429 temp_c=36.37 vdda_mv=3313 btn=0
+t_ms=55929 temp_c=36.37 vdda_mv=3313 btn=0
+t_ms=56429 temp_c=36.05 vdda_mv=3313 btn=0
+t_ms=56929 temp_c=36.69 vdda_mv=3315 btn=0
+t_ms=57429 temp_c=36.37 vdda_mv=3313 btn=0
+t_ms=57929 temp_c=36.69 vdda_mv=3315 btn=0
+t_ms=58429 temp_c=36.37 vdda_mv=3313 btn=0
+t_ms=58929 temp_c=36.37 vdda_mv=3313 btn=1
+
+event: button pressed
+> t_ms=59429 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=59929 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=60429 temp_c=36.69 vdda_mv=3315 btn=1
+t_ms=60929 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=61429 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=61929 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=62429 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=62929 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=63429 temp_c=36.69 vdda_mv=3315 btn=1
+t_ms=63929 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=64429 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=64929 temp_c=36.37 vdda_mv=3313 btn=1
+t_ms=65429 temp_c=36.69 vdda_mv=3313 btn=1
+t_ms=65929 temp_c=36.69 vdda_mv=3313 btn=1
+stream off
+stream off
+>

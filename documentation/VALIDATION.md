@@ -21,8 +21,19 @@ Follow [REPEATABLE_WORKFLOW.md](REPEATABLE_WORKFLOW.md) for the numbered procedu
 - `tools/telemetry_logger.py` (pyserial 3.5, Python 3.14) logged 10 samples at 200 ms with no
   missing lines: [logger-run.csv](logger-run.csv).
 - Measured: VDDA 3313 to 3315 mV, die temperature 35.7 to 36.7 °C at idle.
-- Not yet captured in a log: the USER button press/release events (needs a physical press).
 
 Fixed during this test: an over-long input line used to be cut off and rejected as an unknown command.
 It now reports "line too long". The logger used to skip the first sample, because that line arrives
 right after the "> " prompt.
+
+## v1.0.2 button debounce (26 Oct 2026)
+
+- The v1.0.1 debounce accepted the first edge and then ignored changes for 20 ms, so a bouncing
+  contact could produce a false press/release pair. v1.0.2 fires an event only after the pin level
+  has been stable for 30 ms.
+- Build: 0 errors, 0 warnings, text 24844 bytes. Flash verified. Full CLI regression repeated:
+  [cli-session.txt](cli-session.txt).
+- Button test: this board's B1 switch is broken (PC13 reads 0 constantly, with no noise), so PC13
+  (CN11 pin 23) was connected to +3.3 V (CN11 pin 16) with a jumper wire, which is the signal
+  B1 produces. 6 level changes gave 6 events, correctly alternating pressed/released, with no
+  duplicates despite the wire bouncing: [button-test.txt](button-test.txt).

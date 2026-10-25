@@ -18,7 +18,7 @@ hardware needed: plug in the board and open a terminal.
 | Telemetry | Die temperature (0.01 °C), VDDA (mV), button state, uptime | ADC1 ch17/ch18 at register level, 8-sample average, TS_CAL1/TS_CAL2/VREFINT_CAL |
 | Streaming | Periodic samples, text or JSON, 50 ms – 60 s | drift-free scheduler on `HAL_GetTick()` |
 | Reliability | 2 s independent watchdog, reset-cause on boot, frozen while debugging | IWDG + RCC->CSR + DBGMCU |
-| Events | Debounced USER button press/release messages | 20 ms debounce |
+| Events | Debounced USER button (PC13) press/release messages | level must hold 30 ms before an event fires |
 | Host tool | Serial → CSV logger | `tools/telemetry_logger.py` (pyserial) |
 
 ## Commands (115200 8N1, ST-LINK VCP)
@@ -81,8 +81,8 @@ python tools/telemetry_logger.py COM3 --period 500 --out log.csv
 
 ## Tested on hardware
 
-v1.0.1, NUCLEO-F446ZE, 25 Oct 2026. Every command, the error paths, all three reset causes
-(pin, software, watchdog) and the PC logger were run on the board. Excerpt:
+v1.0.2, NUCLEO-F446ZE, 26 Oct 2026. Every command, the error paths, all three reset causes
+(pin, software, watchdog), the button events and the PC logger were run on the board. Excerpt:
 
 ```text
 > read json
@@ -92,11 +92,12 @@ error: period must be 50..60000 ms
 > wdtest
 simulating a hang; IWDG should reset the MCU in ~2 s
 
-=== cli_telemetry v1.0.1 | NUCLEO-F446ZE @ 180 MHz ===
+=== cli_telemetry v1.0.2 | NUCLEO-F446ZE @ 180 MHz ===
 reset cause: watchdog (IWDG)
 ```
 
 - Full serial session: [documentation/cli-session.txt](documentation/cli-session.txt)
+- Button events (PC13 jumpered to 3.3 V, since this board's B1 is broken): [documentation/button-test.txt](documentation/button-test.txt)
 - Logger output, 10 samples at 200 ms: [documentation/logger-run.csv](documentation/logger-run.csv)
 - Build, flash and clock-register evidence: [documentation/VALIDATION.md](documentation/VALIDATION.md)
 

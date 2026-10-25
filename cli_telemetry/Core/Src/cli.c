@@ -32,8 +32,11 @@ static uint32_t stream_period_ms;  /* 0 = stream off */
 static uint32_t stream_last_ms;
 static uint8_t  stream_json;
 
-static uint8_t  btn_last;
-static uint32_t btn_changed_ms;
+#define BTN_STABLE_MS 30U
+
+static uint8_t  btn_state;         /* debounced */
+static uint8_t  btn_raw_last;
+static uint32_t btn_raw_ms;        /* when the raw level last changed */
 
 /* ---- commands ----------------------------------------------------------- */
 
@@ -287,7 +290,8 @@ static void handle_char(uint8_t c)
 void cli_init(UART_HandleTypeDef *huart)
 {
   cli_uart = huart;
-  btn_last = (HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET);
+  btn_state = (HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET);
+  btn_raw_last = btn_state;
 
   __HAL_UART_ENABLE_IT(cli_uart, UART_IT_RXNE);
   HAL_NVIC_SetPriority(USART3_IRQn, 5, 0);
@@ -317,13 +321,17 @@ void cli_poll(void)
     print_sample(&s, stream_json);
   }
 
-  /* Debounced button event (20 ms) */
-  uint8_t btn = (HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET);
-  if (btn != btn_last && (now - btn_changed_ms) > 20U)
+  /* Button event once the level has been stable for BTN_STABLE_MS */
+  uint8_t raw = (HAL_GPIO_ReadPin(USER_Btn_GPIO_Port, USER_Btn_Pin) == GPIO_PIN_SET);
+  if (raw != btn_raw_last)
   {
-    btn_last = btn;
-    btn_changed_ms = now;
-    printf("\r\nevent: button %s\r\n" PROMPT, btn ? "pressed" : "released");
+    btn_raw_last = raw;
+    btn_raw_ms = now;
+  }
+  else if (raw != btn_state && (now - btn_raw_ms) >= BTN_STABLE_MS)
+  {
+    btn_state = raw;
+    printf("\r\nevent: button %s\r\n" PROMPT, btn_state ? "pressed" : "released");
   }
 }
 
